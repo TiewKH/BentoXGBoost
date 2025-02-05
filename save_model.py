@@ -5,6 +5,9 @@ from sklearn.datasets import load_breast_cancer
 from sklearn.utils import Bunch
 
 import bentoml
+import os 
+
+model_name = os.environ["MODEL"]
 
 if t.TYPE_CHECKING:
     from sklearn.utils import Bunch
@@ -24,4 +27,7 @@ param = {"max_depth": 3, "eta": 0.3, "objective": "multi:softprob", "num_class":
 model = xgb.train(param, dt)
 
 # Specify the model name and the model to be saved
-bentoml.xgboost.save_model("cancer", model)
+# bentoml.xgboost.save_model("cancer", model)
+
+with bentoml.models.create(name=model_name) as model_ref:
+    model.save_model(f'{model_ref.path}cancer-tiewkh-test.model')

@@ -1,4 +1,4 @@
-service: "service:CancerClassifier"
+service: "service:CancerTiewKHClassifier"
 labels:
   owner: bentoml-team
   stage: demo
