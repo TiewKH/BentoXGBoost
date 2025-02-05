@@ -1,3 +1,14 @@
+# Run these commands
+```
+export MODEL=cancer-tiewkh-test && \
+python3 save_model.py && \
+bentoml build -f bentofile.yaml -o tag && \
+bentoml export cancer_tiew_kh_classifier:latest ./cancer_tiew_kh_classifier.zip && \
+mkdir cancer_tiew_kh_classifier && \
+unzip cancer_tiew_kh_classifier.zip -d cancer_tiew_kh_classifier/
+ls cancer_tiew_kh_classifier | grep models
+```
+
 <div align="center">
     <h1 align="center">Serve an XGBoost Model with BentoML</h1>
 </div>
@@ -101,14 +112,3 @@ bentoml deploy .
 Once the application is up and running, you can access it via the exposed URL.
 
 **Note**: For custom deployment in your own infrastructure, use [BentoML to generate an OCI-compliant image](https://docs.bentoml.com/en/latest/get-started/packaging-for-deployment.html).
-
-
-```
-export MODEL=cancer-tiewkh-test
-python3 save_model.py && \
-bentoml build -f bentofile.yaml -o tag && \
-bentoml export cancer_tiew_kh_classifier:latest ./cancer_tiew_kh_classifier.zip && \
-mkdir cancer_tiew_kh_classifier && \
-unzip cancer_tiew_kh_classifier.zip -d cancer_tiew_kh_classifier/
-ls cancer_tiew_kh_classifier | grep models
-```
