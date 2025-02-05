@@ -16,11 +16,20 @@ model_name = os.environ["MODEL"]
 )
 class CancerTiewKHClassifier:
     # Retrieve the latest version of the model from the BentoML model store
+
+    # This fails
     bento_model = [BentoModel(f"{model_name}:latest")]
+
+    # This works
+    # bento_model = BentoModel(f"{model_name}:latest")
 
     def __init__(self):
         self.model = xgb.Booster({'nthread': 4})  # init model
+        # This fails
         self.model.load_model(f"{self.bento_model[0].stored.path}/cancer-tiewkh-test.model")
+
+        # This works
+        # self.model.load_model(f"{self.bento_model.stored.path}/cancer-tiewkh-test.model")
 
         # Check resource availability
         if os.getenv("CUDA_VISIBLE_DEVICES") not in (None, "", "-1"):
